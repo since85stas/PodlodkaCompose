@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -56,4 +58,16 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
+
+    // Room and Lifecycle dependencies
+    implementation "androidx.room:room-runtime:$version_room"
+    implementation "androidx.room:room-ktx:$version_room"
+    kapt "androidx.room:room-compiler:$version_room"
+
+    def hilt_jetpack = "1.0.0-alpha01"
+    // Hilt depend
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_jetpack"
+    kapt "androidx.hilt:hilt-compiler:$hilt_jetpack"
 }
