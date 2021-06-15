@@ -22,7 +22,6 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
-import stas.batura.podlodkacompose.data.rawdata.Session
 
 /**
  * A database that stores SleepNight information.
@@ -31,7 +30,7 @@ import stas.batura.podlodkacompose.data.rawdata.Session
  * This pattern is pretty much the same for any database,
  * so you can reuse it.
  */
-@Database(entities =[Session::class], version = 1, exportSchema = false)
+@Database(entities =[Session::class, Favourite::class], version = 1, exportSchema = false)
 abstract class SessionsDatabase : RoomDatabase() {
 
     /**

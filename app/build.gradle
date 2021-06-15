@@ -43,6 +43,9 @@ android {
         kotlinCompilerExtensionVersion compose_version
         kotlinCompilerVersion '1.4.32'
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -67,7 +70,7 @@ dependencies {
     implementation "androidx.room:room-ktx:$version_room"
     kapt "androidx.room:room-compiler:$version_room"
 
-    def hilt_jetpack = "alpha03"
+    def hilt_jetpack = "1.0.0-alpha03"
     // Hilt depend
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"

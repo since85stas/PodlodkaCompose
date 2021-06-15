@@ -6,6 +6,7 @@ import androidx.lifecycle.*
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import stas.batura.podlodkacompose.data.IRepository
+import javax.inject.Inject
 
 private val TAG = "PayViewModel"
 

@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_users">
-
+    app:startDestination="@+id/sessionsFragment">
 
     <fragment
         android:id="@+id/sessionsFragment"
         android:name="stas.batura.podlodkacompose.ui.seccions.SessionsFragment"
         android:label="SessionsFragment" />
+
 </navigation>
