@@ -1,16 +1,7 @@
 package stas.batura.podlodkacompose.data.rawdata
 
-import androidx.room.Entity
+import stas.batura.podlodkacompose.data.room.Session
 
-@Entity(tableName = "sessions_table")
-data class Session(
-    val id: String,
-    val speaker: String,
-    val date: String,
-    val timeInterval: String,
-    val description: String,
-    val imageUrl: String
-)
 
 val MockSessions = listOf(
     Session(
