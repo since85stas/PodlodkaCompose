@@ -6,4 +6,8 @@
     app:startDestination="@+id/navigation_users">
 
 
+    <fragment
+        android:id="@+id/sessionsFragment"
+        android:name="stas.batura.podlodkacompose.ui.seccions.SessionsFragment"
+        android:label="SessionsFragment" />
 </navigation>
