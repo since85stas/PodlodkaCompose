@@ -1,4 +1,12 @@
 package stas.batura.podlodkacompose.data
 
-class Repository {
+import stas.batura.podlodkacompose.data.room.SessionsDao
+import javax.inject.Inject
+
+class Repository: IRepository {
+
+    @Inject
+    lateinit var sessDao: SessionsDao
+
+
 }

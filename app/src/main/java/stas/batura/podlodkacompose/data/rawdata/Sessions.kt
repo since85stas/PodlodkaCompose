@@ -1,5 +1,8 @@
 package stas.batura.podlodkacompose.data.rawdata
 
+import androidx.room.Entity
+
+@Entity(tableName = "sessions_table")
 data class Session(
     val id: String,
     val speaker: String,
