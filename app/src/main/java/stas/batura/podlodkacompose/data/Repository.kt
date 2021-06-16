@@ -26,8 +26,12 @@ class Repository @Inject constructor(): IRepository {
     init {
         Log.d(TAG, ": rep init")
 //        externalScope.launch {
-//            sessionsDao.insertAllSessions(MockSessions)
+//
 //        }
+    }
+
+    override suspend fun addInitsessions() {
+        sessionsDao.insertAllSessions(MockSessions)
     }
 
 
