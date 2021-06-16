@@ -43,6 +43,9 @@ android {
         kotlinCompilerExtensionVersion compose_version
         kotlinCompilerVersion '1.4.32'
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {

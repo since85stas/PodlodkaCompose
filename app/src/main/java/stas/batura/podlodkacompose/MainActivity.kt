@@ -3,6 +3,7 @@ package stas.batura.podlodkacompose
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -12,18 +13,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import stas.batura.podlodkacompose.ui.theme.PodlodkaComposeTheme
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            R.layout.main_activity
-//            PodlodkaComposeTheme {
-//                // A surface container using the 'background' color from the theme
-//                Surface(color = MaterialTheme.colors.background) {
-//                    Greeting("Android")
-//                }
-//            }
-        }
+        setContentView(R.layout.main_activity)
     }
 }
 

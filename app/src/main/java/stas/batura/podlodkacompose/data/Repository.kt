@@ -10,14 +10,17 @@ import javax.inject.Singleton
 private val TAG = Repository::class.java.simpleName
 
 @Singleton
-class Repository @Inject constructor(): IRepository {
+class Repository @Inject constructor(
+    val sessionsDao: SessionsDao,
+    @ApplicationScope val externalScope: CoroutineScope
+): IRepository {
 
-    @Inject
-    lateinit var sessionsDao: SessionsDao
+//    @Inject
+//    lateinit var sessionsDao: SessionsDao
 
-    @Inject
-    @ApplicationScope
-    lateinit var externalScope: CoroutineScope
+//    @Inject
+//    @ApplicationScope
+//    lateinit var externalScope: CoroutineScope
 
     init {
         Log.d(TAG, ": rep init")
