@@ -14,7 +14,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
@@ -25,7 +24,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import dagger.hilt.android.AndroidEntryPoint
 import stas.batura.podlodkacompose.R
-import stas.batura.podlodkacompose.data.room.Session
+import stas.batura.podlodkacompose.data.out.SessionDay
 import stas.batura.podlodkacompose.databinding.SessionsFragmentBinding
 import stas.batura.podlodkacompose.ui.theme.PodlodkaComposeTheme
 
@@ -53,8 +52,8 @@ class SessionsFragment: Fragment() {
         )
         bindings.apply {
             composeView.setContent {
-                val sess: List<Session> by viewModel.sessions.observeAsState(initial = emptyList())
-                SessionsScreen(sess = sess)
+                val days: List<SessionDay> by viewModel.days.observeAsState(initial = emptyList())
+                SessionsScreen(days = days)
 //                Greeting(name = "tttt")
             }
         }
@@ -73,19 +72,19 @@ class SessionsFragment: Fragment() {
     /**
      * Stateless component that is responsible for the entire screen.
      *
-     * @param sess (state) list of [TodoItem] to display
+     * @param days (state) list of [TodoItem] to display
      */
     @Composable
     fun SessionsScreen(
-        sess: List<Session>
+        days: List<SessionDay>
     ) {
         Column {
             LazyColumn(
                 modifier = Modifier.weight(1f),
                 contentPadding = PaddingValues(top = 8.dp)
             ) {
-                items(sess){ session ->
-                    SessionItem(session = session, modifier = Modifier.fillParentMaxWidth())
+                items(days){ day ->
+                    DayItem(day = day, modifier = Modifier.fillParentMaxWidth())
                 }
             }
 

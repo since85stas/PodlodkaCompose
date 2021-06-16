@@ -3,6 +3,9 @@ package stas.batura.podlodkacompose.data
 import android.util.Log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import stas.batura.podlodkacompose.data.out.SessionDay
+import stas.batura.podlodkacompose.data.out.getSessionDays
 import stas.batura.podlodkacompose.data.rawdata.MockSessions
 import stas.batura.podlodkacompose.data.room.Session
 import stas.batura.podlodkacompose.data.room.SessionsDao
@@ -29,5 +32,9 @@ class Repository @Inject constructor(
 
     override fun getSessions(): Flow<List<Session>> {
         return sessionsDao.getAllSessions()
+    }
+
+    override fun getDays(): Flow<List<SessionDay>> {
+        return sessionsDao.getAllSessions().map { s -> getSessionDays(s) }
     }
 }
