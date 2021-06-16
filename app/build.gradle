@@ -83,4 +83,7 @@ dependencies {
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_jetpack"
     kapt "androidx.hilt:hilt-compiler:$hilt_jetpack"
+
+    // build.gradle
+    implementation "com.google.accompanist:accompanist-coil:0.11.1"
 }
