@@ -28,7 +28,7 @@ class SessionsFragment: Fragment() {
 
         sessionsViewModel = ViewModelProvider(this).get(SessionsViewModel::class.java)
 
-        return  inflater.inflate(
+        return         inflater.inflate(
             R.layout.sessions_fragment,
             container,
             false

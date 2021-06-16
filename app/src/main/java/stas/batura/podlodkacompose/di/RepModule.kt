@@ -5,14 +5,14 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
-import dagger.hilt.components.SingletonComponent
+import dagger.hilt.android.components.ApplicationComponent
 import stas.batura.podlodkacompose.data.IRepository
 import stas.batura.podlodkacompose.data.Repository
 import javax.inject.Singleton
 
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ActivityComponent::class)
 abstract class RepositoryModule {
 
     @Binds

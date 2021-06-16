@@ -3,25 +3,27 @@ package stas.batura.podlodkacompose
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.findNavController
-import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import stas.batura.podlodkacompose.ui.theme.PodlodkaComposeTheme
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
-//        val navController = findNavController(R.id.nav_host_fragment)
-//
-//        navView.setupWithNavController(navController)
+        setContent {
+            R.layout.main_activity
+//            PodlodkaComposeTheme {
+//                // A surface container using the 'background' color from the theme
+//                Surface(color = MaterialTheme.colors.background) {
+//                    Greeting("Android")
+//                }
+//            }
+        }
     }
 }
 

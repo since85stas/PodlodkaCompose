@@ -3,7 +3,7 @@ package stas.batura.podlodkacompose.di
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
+import dagger.hilt.android.components.ApplicationComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +15,7 @@ import javax.inject.Singleton
 @Qualifier
 annotation class ApplicationScope
 
-@InstallIn(SingletonComponent::class)
+@InstallIn(ApplicationComponent::class)
 @Module
 object CoroutinesScopesModule {
 
@@ -28,7 +28,7 @@ object CoroutinesScopesModule {
 
 }
 
-@InstallIn(SingletonComponent::class)
+@InstallIn(ApplicationComponent::class)
 @Module
 object CoroutinesDispatchersModule {
 

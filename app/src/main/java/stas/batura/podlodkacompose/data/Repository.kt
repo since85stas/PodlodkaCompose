@@ -2,8 +2,6 @@ package stas.batura.podlodkacompose.data
 
 import android.util.Log
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
-import stas.batura.podlodkacompose.data.rawdata.MockSessions
 import stas.batura.podlodkacompose.data.room.SessionsDao
 import stas.batura.podlodkacompose.di.ApplicationScope
 import javax.inject.Inject
@@ -21,18 +19,11 @@ class Repository @Inject constructor(): IRepository {
     @ApplicationScope
     lateinit var externalScope: CoroutineScope
 
-//    val sessions = sessionsDao.getAllSessions()
-
     init {
         Log.d(TAG, ": rep init")
-//        externalScope.launch {
-//
-//        }
     }
 
     override suspend fun addInitsessions() {
-        sessionsDao.insertAllSessions(MockSessions)
+        TODO("Not yet implemented")
     }
-
-
 }
