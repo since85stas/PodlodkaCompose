@@ -80,24 +80,24 @@ class SessionsFragment: Fragment() {
         sess: List<Session>
     ) {
         Column {
-//            LazyColumn(
-//                modifier = Modifier.weight(1f),
-//                contentPadding = PaddingValues(top = 8.dp)
-//            ) {
-//                items(sess){ session ->
-//                    SessionItem(session = session, modifier = Modifier.fillParentMaxWidth())
-//                }
-//            }
+            LazyColumn(
+                modifier = Modifier.weight(1f),
+                contentPadding = PaddingValues(top = 8.dp)
+            ) {
+                items(sess){ session ->
+                    SessionItem(session = session, modifier = Modifier.fillParentMaxWidth())
+                }
+            }
 
-            // For quick testing, a random item generator button
-//            Button(
-//                onClick = {  },
-//                modifier = Modifier
-//                    .padding(16.dp)
-//                    .fillMaxWidth(),
-//            ) {
-//                Text("Add random item")
-//            }
+//             For quick testing, a random item generator button
+            Button(
+                onClick = {  },
+                modifier = Modifier
+                    .padding(16.dp)
+                    .fillMaxWidth(),
+            ) {
+                Text("Add random item")
+            }
         }
     }
 

@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 interface SessionsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertSession(session: Session): Long
+    suspend fun insertSession(session: Session)
 
     @Query("SELECT * from sessions_table ORDER BY id")
     fun getAllSessions() : Flow<List<Session>>
