@@ -1,4 +1,4 @@
-package stas.batura.podlodkacompose.ui.seccions
+package stas.batura.podlodkacompose.ui.sessions
 
 import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
@@ -22,6 +22,10 @@ class SessionsViewModel @ViewModelInject constructor(
     private val _spinner = MutableLiveData<Boolean>(false)
     val spinner: LiveData<Boolean> get() = _spinner
 
+    val sessions = repository.getSessions()
+
+
+
     init {
         Log.d(TAG, ": $repository")
         loadData()
@@ -29,6 +33,7 @@ class SessionsViewModel @ViewModelInject constructor(
 
     private fun loadData() {
         launchDataLoad {
+            repository.addInitsessions()
         }
     }
 
