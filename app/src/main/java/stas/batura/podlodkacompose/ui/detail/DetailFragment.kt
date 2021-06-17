@@ -6,22 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Button
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import stas.batura.podlodkacompose.R
 import stas.batura.podlodkacompose.data.out.getSessionDays
@@ -52,8 +41,12 @@ class DetailFragment: Fragment() {
             container,
             false
         )
+
+        val args:DetailFragmentArgs by navArgs()
+
         bindings.apply {
             composeView.setContent {
+                DetailScreen(session = args.session)
             }
         }
 
@@ -68,18 +61,5 @@ class DetailFragment: Fragment() {
         Toast.makeText(requireContext(), text, Toast.LENGTH_LONG).show()
     }
 
-    /**
-     * Stateless component that is responsible for the entire screen.
-     *
-     * @param days (state) list of [TodoItem] to display
-     */
-    @ExperimentalFoundationApi
-    @Composable
-    fun DetailScreen(
-        grouped:  Map<String, List<Session>>
-    ) {
-        Column {
-        }
-    }
 
 }

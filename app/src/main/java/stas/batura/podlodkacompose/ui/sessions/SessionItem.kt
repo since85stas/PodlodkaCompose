@@ -6,12 +6,14 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -54,7 +56,7 @@ fun SessionImage(session: Session, modifier: Modifier) {
             request = session.imageUrl
         ),
         contentDescription = "photo",
-        modifier = Modifier.size(80.dp).padding(end = 12.dp)
+        modifier = Modifier.size(80.dp).clip(CircleShape)
     )
 }
 

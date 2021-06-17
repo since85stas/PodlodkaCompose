@@ -41,8 +41,6 @@ class SessionsFragment: Fragment() {
         fun newInstance() = SessionsFragment()
     }
 
-//    private lateinit var sessionsViewModel: SessionsViewModel
-
     @ExperimentalFoundationApi
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
