@@ -40,7 +40,7 @@ class SessionsViewModel @ViewModelInject constructor(
 
     val sessions = repository.getSessions().asLiveData()
 
-    val days = repository.getDays().asLiveData()
+//    val days = repository.getDays().asLiveData()
 
     init {
         Log.d(TAG, ": $repository")

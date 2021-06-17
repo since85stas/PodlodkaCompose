@@ -26,6 +26,7 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.hilt.android.AndroidEntryPoint
 import stas.batura.podlodkacompose.R
 import stas.batura.podlodkacompose.data.out.SessionDay
+import stas.batura.podlodkacompose.data.out.getSessionDays
 import stas.batura.podlodkacompose.data.room.Session
 import stas.batura.podlodkacompose.databinding.SessionsFragmentBinding
 import stas.batura.podlodkacompose.ui.theme.PodlodkaComposeTheme
@@ -58,8 +59,9 @@ class SessionsFragment: Fragment() {
             composeView.setContent {
 //                val days: List<SessionDay> by viewModel.days.observeAsState(initial = emptyList())
                 val sess: List<Session> by viewModel.sessions.observeAsState(initial = emptyList())
-                val grouped:  Map<String, List<Session>> = sess.groupBy { it.date }
-                SessionsScreen(grouped= grouped)
+//                val grouped:  Map<String, List<Session>> = sess.groupBy { it.date }
+                val gr = getSessionDays(sess)
+                SessionsScreen(grouped= gr)
             }
         }
 

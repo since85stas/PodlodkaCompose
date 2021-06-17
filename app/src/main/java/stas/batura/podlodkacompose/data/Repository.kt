@@ -34,7 +34,8 @@ class Repository @Inject constructor(
         return sessionsDao.getAllSessions()
     }
 
-    override fun getDays(): Flow<List<SessionDay>> {
-        return sessionsDao.getAllSessions().map { s -> getSessionDays(s) }
-    }
+//    override fun getDays(): Flow<List<SessionDay>> {
+////        return sessionsDao.getAllSessions().map { s -> getSessionDays(s) }
+//        return null
+//    }
 }

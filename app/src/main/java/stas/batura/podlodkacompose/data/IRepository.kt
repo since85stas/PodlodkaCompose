@@ -10,6 +10,6 @@ interface IRepository {
 
     fun getSessions(): Flow<List<Session>>
 
-    fun getDays(): Flow<List<SessionDay>>
+//    fun getDays(): Flow<List<SessionDay>>
 
 }

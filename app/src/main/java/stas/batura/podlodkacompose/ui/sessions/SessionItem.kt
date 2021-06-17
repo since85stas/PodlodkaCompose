@@ -5,6 +5,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,17 +21,38 @@ import stas.batura.podlodkacompose.ui.theme.PodlodkaComposeTheme
 
 @Composable
 fun SessionItem(session: Session, modifier: Modifier) {
-        Row(verticalAlignment = Alignment.CenterVertically, modifier = modifier) {
-            Image(
-                painter = rememberCoilPainter(
-                    request = session.imageUrl
-                ),
-                contentDescription = "photo",
-                modifier = Modifier.size(50.dp)
-            )
+    Card(
+        shape = RoundedCornerShape(8.dp),
+        modifier = modifier.padding(16.dp) ,
+        elevation = 16.dp
+    ) {
+
+        Row(verticalAlignment = Alignment.CenterVertically, modifier = modifier.padding(12.dp)) {
+            SessionImage(session = session, modifier = modifier)
             Spacer(Modifier.width(10.dp))
-            Text("Item ${session.id}")
+            SessionContent(session = session, modifier = modifier)
         }
+    }
+}
+
+@Composable
+fun SessionContent(session: Session, modifier: Modifier) {
+    Column() {
+        Text(text = "${session.speaker}")
+        Text(text = "${session.timeInterval}")
+        Text(text = "${session.description}")
+    }
+}
+
+@Composable
+fun SessionImage(session: Session, modifier: Modifier) {
+    Image(
+        painter = rememberCoilPainter(
+            request = session.imageUrl
+        ),
+        contentDescription = "photo",
+        modifier = Modifier.size(80.dp).padding(end = 12.dp)
+    )
 }
 
 @ExperimentalFoundationApi
