@@ -22,7 +22,7 @@ fun SessionItem(session: Session, modifier: Modifier) {
         Row(verticalAlignment = Alignment.CenterVertically, modifier = modifier) {
             Image(
                 painter = rememberCoilPainter(
-                    request = "https://developer.android.com/images/brand/Android_Robot.png"
+                    request = session.imageUrl
                 ),
                 contentDescription = "photo",
                 modifier = Modifier.size(50.dp)

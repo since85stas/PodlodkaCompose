@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,10 +26,12 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.hilt.android.AndroidEntryPoint
 import stas.batura.podlodkacompose.R
 import stas.batura.podlodkacompose.data.out.SessionDay
+import stas.batura.podlodkacompose.data.room.Session
 import stas.batura.podlodkacompose.databinding.SessionsFragmentBinding
 import stas.batura.podlodkacompose.ui.theme.PodlodkaComposeTheme
 
 private val TAG = "SessionsFragment"
+
 
 @AndroidEntryPoint
 class SessionsFragment: Fragment() {
@@ -39,6 +42,7 @@ class SessionsFragment: Fragment() {
 
 //    private lateinit var sessionsViewModel: SessionsViewModel
 
+    @ExperimentalFoundationApi
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
@@ -52,9 +56,10 @@ class SessionsFragment: Fragment() {
         )
         bindings.apply {
             composeView.setContent {
-                val days: List<SessionDay> by viewModel.days.observeAsState(initial = emptyList())
-                SessionsScreen(days = days)
-//                Greeting(name = "tttt")
+//                val days: List<SessionDay> by viewModel.days.observeAsState(initial = emptyList())
+                val sess: List<Session> by viewModel.sessions.observeAsState(initial = emptyList())
+                val grouped:  Map<String, List<Session>> = sess.groupBy { it.date }
+                SessionsScreen(grouped= grouped)
             }
         }
 
@@ -74,17 +79,24 @@ class SessionsFragment: Fragment() {
      *
      * @param days (state) list of [TodoItem] to display
      */
+    @ExperimentalFoundationApi
     @Composable
     fun SessionsScreen(
-        days: List<SessionDay>
+        grouped:  Map<String, List<Session>>
     ) {
         Column {
             LazyColumn(
                 modifier = Modifier.weight(1f),
                 contentPadding = PaddingValues(top = 8.dp)
             ) {
-                items(days){ day ->
-                    DayItem(day = day, modifier = Modifier.fillParentMaxWidth())
+                grouped.forEach { (initial, contactsForInitial) ->
+                    stickyHeader {
+                        Text(initial)
+                    }
+
+                    items(contactsForInitial) { contact ->
+                        SessionItem(contact, modifier = Modifier.fillParentMaxWidth())
+                    }
                 }
             }
 
