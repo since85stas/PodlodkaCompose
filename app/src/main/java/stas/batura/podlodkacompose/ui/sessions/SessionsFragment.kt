@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import stas.batura.podlodkacompose.R
 import stas.batura.podlodkacompose.data.out.SessionDay
@@ -60,7 +61,10 @@ class SessionsFragment: Fragment() {
                 val sess: List<Session> by viewModel.sessions.observeAsState(initial = emptyList())
 //                val grouped:  Map<String, List<Session>> = sess.groupBy { it.date }
                 val gr = getSessionDays(sess)
-                SessionsScreen(grouped= gr)
+                SessionsScreen(
+                    grouped= gr,
+                    onSessClick = this@SessionsFragment::goToDetailFragment
+                    )
             }
         }
 
@@ -75,42 +79,11 @@ class SessionsFragment: Fragment() {
         Toast.makeText(requireContext(), text, Toast.LENGTH_LONG).show()
     }
 
-    /**
-     * Stateless component that is responsible for the entire screen.
-     *
-     * @param days (state) list of [TodoItem] to display
-     */
-    @ExperimentalFoundationApi
-    @Composable
-    fun SessionsScreen(
-        grouped:  Map<String, List<Session>>
-    ) {
-        Column {
-            LazyColumn(
-                modifier = Modifier.weight(1f),
-                contentPadding = PaddingValues(top = 8.dp)
-            ) {
-                grouped.forEach { (initial, contactsForInitial) ->
-                    stickyHeader {
-                        Text(initial)
-                    }
-
-                    items(contactsForInitial) { contact ->
-                        SessionItem(contact, modifier = Modifier.fillParentMaxWidth())
-                    }
-                }
-            }
-
-//             For quick testing, a random item generator button
-            Button(
-                onClick = {  },
-                modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth(),
-            ) {
-                Text("Add random item")
-            }
-        }
+    private fun goToDetailFragment(session: Session) {
+        val action = SessionsFragmentDirections.actionSessionsFragmentToDetailFragment(session)
+        findNavController().navigate(action)
     }
+
+
 
 }

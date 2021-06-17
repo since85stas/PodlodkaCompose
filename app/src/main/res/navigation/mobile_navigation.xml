@@ -9,5 +9,18 @@
     <fragment
         android:id="@+id/sessionsFragment"
         android:name="stas.batura.podlodkacompose.ui.sessions.SessionsFragment"
-        android:label="SessionsFragment" />
+        android:label="SessionsFragment" >
+        <action
+            android:id="@+id/action_sessionsFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="stas.batura.podlodkacompose.ui.detail.DetailFragment"
+        android:label="DetailFragment" >
+        <argument
+            android:name="session"
+            app:argType="stas.batura.podlodkacompose.data.room.Session" />
+    </fragment>
 </navigation>

@@ -26,6 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import stas.batura.podlodkacompose.R
 import stas.batura.podlodkacompose.data.out.getSessionDays
 import stas.batura.podlodkacompose.data.room.Session
+import stas.batura.podlodkacompose.databinding.DetailFragmentBinding
 import stas.batura.podlodkacompose.databinding.SessionsFragmentBinding
 import stas.batura.podlodkacompose.ui.sessions.SessionItem
 import stas.batura.podlodkacompose.ui.sessions.SessionsViewModel
@@ -45,7 +46,7 @@ class DetailFragment: Fragment() {
 
         val viewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
 
-        val bindings: SessionsFragmentBinding = DataBindingUtil.inflate(
+        val bindings: DetailFragmentBinding = DataBindingUtil.inflate(
             inflater,
             R.layout.detail_fragment,
             container,
@@ -55,6 +56,7 @@ class DetailFragment: Fragment() {
             composeView.setContent {
             }
         }
+
         return bindings.root
     }
 
