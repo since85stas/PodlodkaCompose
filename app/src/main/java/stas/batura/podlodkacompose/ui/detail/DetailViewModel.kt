@@ -1,25 +1,25 @@
-package stas.batura.podlodkacompose.ui.sessions
+package stas.batura.podlodkacompose.ui.detail
 
 import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import stas.batura.podlodkacompose.data.IRepository
 import stas.batura.podlodkacompose.data.room.Session
 import stas.batura.podlodkacompose.di.ApplicationScope
 
-private val TAG = SessionsViewModel::class.java.simpleName
+private val TAG = DetailViewModel::class.java.simpleName
 
-class SessionsViewModel @ViewModelInject constructor(
+
+class DetailViewModel @ViewModelInject constructor(
     val repository: IRepository,
     @ApplicationScope val externalScope: CoroutineScope
-    ): ViewModel() {
+): ViewModel() {
 
     private val _toastText = MutableLiveData<String>()
     val toastTex: LiveData<String> get() = _toastText
@@ -33,13 +33,9 @@ class SessionsViewModel @ViewModelInject constructor(
 
     init {
         Log.d(TAG, ": $repository")
-        loadData()
     }
 
     private fun loadData() {
-        launchDataLoad {
-            repository.addInitsessions()
-        }
     }
 
     private fun launchDataLoad(block: suspend () -> Unit): Job {

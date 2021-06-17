@@ -1,4 +1,4 @@
-package stas.batura.podlodkacompose.ui.sessions
+package stas.batura.podlodkacompose.ui.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,52 +18,43 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import dagger.hilt.android.AndroidEntryPoint
 import stas.batura.podlodkacompose.R
-import stas.batura.podlodkacompose.data.out.SessionDay
 import stas.batura.podlodkacompose.data.out.getSessionDays
 import stas.batura.podlodkacompose.data.room.Session
 import stas.batura.podlodkacompose.databinding.SessionsFragmentBinding
-import stas.batura.podlodkacompose.ui.theme.PodlodkaComposeTheme
+import stas.batura.podlodkacompose.ui.sessions.SessionItem
+import stas.batura.podlodkacompose.ui.sessions.SessionsViewModel
 
-private val TAG = SessionsFragment::class.java.simpleName
+private val TAG = DetailFragment::class.java.simpleName
 
 @AndroidEntryPoint
-class SessionsFragment: Fragment() {
+class DetailFragment: Fragment() {
 
     companion object {
-        fun newInstance() = SessionsFragment()
+        fun newInstance() = DetailFragment()
     }
-
-//    private lateinit var sessionsViewModel: SessionsViewModel
 
     @ExperimentalFoundationApi
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
-        val viewModel = ViewModelProvider(this).get(SessionsViewModel::class.java)
+        val viewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
 
         val bindings: SessionsFragmentBinding = DataBindingUtil.inflate(
             inflater,
-            R.layout.sessions_fragment,
+            R.layout.detail_fragment,
             container,
             false
         )
         bindings.apply {
             composeView.setContent {
-//                val days: List<SessionDay> by viewModel.days.observeAsState(initial = emptyList())
-                val sess: List<Session> by viewModel.sessions.observeAsState(initial = emptyList())
-//                val grouped:  Map<String, List<Session>> = sess.groupBy { it.date }
-                val gr = getSessionDays(sess)
-                SessionsScreen(grouped= gr)
             }
         }
-
         return bindings.root
     }
 
@@ -82,34 +73,10 @@ class SessionsFragment: Fragment() {
      */
     @ExperimentalFoundationApi
     @Composable
-    fun SessionsScreen(
+    fun DetailScreen(
         grouped:  Map<String, List<Session>>
     ) {
         Column {
-            LazyColumn(
-                modifier = Modifier.weight(1f),
-                contentPadding = PaddingValues(top = 8.dp)
-            ) {
-                grouped.forEach { (initial, contactsForInitial) ->
-                    stickyHeader {
-                        Text(initial)
-                    }
-
-                    items(contactsForInitial) { contact ->
-                        SessionItem(contact, modifier = Modifier.fillParentMaxWidth())
-                    }
-                }
-            }
-
-//             For quick testing, a random item generator button
-            Button(
-                onClick = {  },
-                modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth(),
-            ) {
-                Text("Add random item")
-            }
         }
     }
 
