@@ -15,6 +15,9 @@ interface SessionsDao {
     @Query("SELECT * FROM sessions_table WHERE id IN (SELECT DISTINCT(sessionId) FROM favourites)")
     fun getFavouriteSessions(): Flow<List<Session>>
 
+    @Query("SELECT * FROM favourites ORDER BY sessionId")
+    fun getFavourites(): Flow<List<Favourite>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllSessions(sessions: List<Session>)
 

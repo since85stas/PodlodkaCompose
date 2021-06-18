@@ -32,6 +32,8 @@ class SessionsViewModel @ViewModelInject constructor(
 //    val days = repository.getDays().asLiveData()
     val favSessions = repository.getFavSessions().asLiveData()
 
+    val favourites = repository.getFavourites().asLiveData()
+
     init {
         Log.d(TAG, ": $repository")
         loadData()
