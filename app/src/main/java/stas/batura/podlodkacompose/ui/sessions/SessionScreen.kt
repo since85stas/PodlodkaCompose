@@ -29,7 +29,7 @@ fun SessionsScreen(
     Column {
         LazyColumn(
             modifier = Modifier.fillMaxWidth(),
-            contentPadding = PaddingValues(top = 8.dp)
+//            contentPadding = PaddingValues(top = 8.dp)
         ) {
             grouped.forEach { (initial, contactsForInitial) ->
                 stickyHeader {
@@ -39,7 +39,6 @@ fun SessionsScreen(
                 items(contactsForInitial) { session ->
                     SessionItem(
                         session = session,
-                        modifier = Modifier.fillMaxWidth(),
                         onSessClick = onSessClick,
                         addToFavClick = addToFavClick
                         )
