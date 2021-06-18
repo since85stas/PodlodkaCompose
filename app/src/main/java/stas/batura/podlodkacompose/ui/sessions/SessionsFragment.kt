@@ -68,7 +68,7 @@ class SessionsFragment: Fragment() {
             }
         }
 
-        viewModel.favSessions.observe(viewLifecycleOwner) {
+        viewModel.sessWithFAv.observe(viewLifecycleOwner) {
             Log.d(TAG, "onCreateView: $it")
         }
 

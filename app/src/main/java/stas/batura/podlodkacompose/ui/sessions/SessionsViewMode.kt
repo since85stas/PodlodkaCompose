@@ -5,13 +5,13 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import stas.batura.podlodkacompose.data.IRepository
+import stas.batura.podlodkacompose.data.room.Favourite
 import stas.batura.podlodkacompose.data.room.Session
+import stas.batura.podlodkacompose.data.room.SessionF
+import stas.batura.podlodkacompose.data.room.combineSessionsWithFavs
 import stas.batura.podlodkacompose.di.ApplicationScope
 
 private val TAG = SessionsViewModel::class.java.simpleName
@@ -33,6 +33,10 @@ class SessionsViewModel @ViewModelInject constructor(
     val favSessions = repository.getFavSessions().asLiveData()
 
     val favourites = repository.getFavourites().asLiveData()
+
+    val sessWithFAv: LiveData<List<SessionF>> = repository.getSessions().combine(repository.getFavourites()) { s,f ->
+        combineSessionsWithFavs(s,f)
+    }.asLiveData()
 
     init {
         Log.d(TAG, ": $repository")
