@@ -4,9 +4,11 @@ import android.util.Log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import stas.batura.podlodkacompose.data.out.SessionDay
 import stas.batura.podlodkacompose.data.out.getSessionDays
 import stas.batura.podlodkacompose.data.rawdata.MockSessions
+import stas.batura.podlodkacompose.data.room.Favourite
 import stas.batura.podlodkacompose.data.room.Session
 import stas.batura.podlodkacompose.data.room.SessionsDao
 import stas.batura.podlodkacompose.di.ApplicationScope
@@ -34,7 +36,23 @@ class Repository @Inject constructor(
         return sessionsDao.getAllSessions()
     }
 
-//    override fun getDays(): Flow<List<SessionDay>> {
+    override fun getFavSessions(): Flow<List<Session>> {
+        return sessionsDao.getFavouriteSessions()
+    }
+
+    override fun insertFav(session: Session) {
+        externalScope.launch {
+            sessionsDao.insertToFav(Favourite(session.id))
+        }
+    }
+
+    override fun deleteFav(session: Session) {
+        externalScope.launch {
+            sessionsDao.removeFromFav(Favourite(session.id))
+        }
+    }
+
+    //    override fun getDays(): Flow<List<SessionDay>> {
 ////        return sessionsDao.getAllSessions().map { s -> getSessionDays(s) }
 //        return null
 //    }

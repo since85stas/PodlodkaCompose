@@ -1,6 +1,7 @@
 package stas.batura.podlodkacompose.ui.sessions
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,9 +62,14 @@ class SessionsFragment: Fragment() {
                 val gr = getSessionDays(sess)
                 SessionsScreen(
                     grouped= gr,
-                    onSessClick = this@SessionsFragment::goToDetailFragment
+                    onSessClick = this@SessionsFragment::goToDetailFragment,
+                    addToFavClick = viewModel::addToFav
                     )
             }
+        }
+
+        viewModel.favSessions.observe(viewLifecycleOwner) {
+            Log.d(TAG, "onCreateView: $it")
         }
 
         return bindings.root

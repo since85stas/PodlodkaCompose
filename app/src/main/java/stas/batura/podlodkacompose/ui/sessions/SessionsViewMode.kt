@@ -30,6 +30,7 @@ class SessionsViewModel @ViewModelInject constructor(
     val sessions = repository.getSessions().asLiveData()
 
 //    val days = repository.getDays().asLiveData()
+    val favSessions = repository.getFavSessions().asLiveData()
 
     init {
         Log.d(TAG, ": $repository")
@@ -54,6 +55,10 @@ class SessionsViewModel @ViewModelInject constructor(
                 _spinner.postValue(false)
             }
         }
+    }
+
+    fun addToFav(session: Session) {
+        repository.insertFav(session = session)
     }
 
 }

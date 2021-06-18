@@ -23,11 +23,12 @@ import stas.batura.podlodkacompose.data.room.Session
 @Composable
 fun SessionsScreen(
     grouped:  Map<String, List<Session>>,
-    onSessClick: (Session) -> Unit
+    onSessClick: (Session) -> Unit,
+    addToFavClick: (Session) -> Unit
 ) {
     Column {
         LazyColumn(
-            modifier = Modifier.weight(1f),
+            modifier = Modifier.fillMaxWidth(),
             contentPadding = PaddingValues(top = 8.dp)
         ) {
             grouped.forEach { (initial, contactsForInitial) ->
@@ -38,8 +39,9 @@ fun SessionsScreen(
                 items(contactsForInitial) { session ->
                     SessionItem(
                         session = session,
-                        modifier = Modifier.fillParentMaxWidth(),
-                        onSessClick = onSessClick
+                        modifier = Modifier.fillMaxWidth(),
+                        onSessClick = onSessClick,
+                        addToFavClick = addToFavClick
                         )
                 }
             }

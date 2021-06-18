@@ -30,7 +30,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
  * This pattern is pretty much the same for any database,
  * so you can reuse it.
  */
-@Database(entities =[Session::class, Favourite::class], version = 2, exportSchema = false)
+@Database(entities =[Session::class, Favourite::class], version = 3, exportSchema = false)
 abstract class SessionsDatabase : RoomDatabase() {
 
     /**

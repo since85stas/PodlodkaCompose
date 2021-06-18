@@ -11,5 +11,9 @@ interface IRepository {
     fun getSessions(): Flow<List<Session>>
 
 //    fun getDays(): Flow<List<SessionDay>>
+    fun getFavSessions(): Flow<List<Session>>
 
+    fun insertFav(session: Session)
+
+    fun deleteFav(session: Session)
 }

@@ -8,9 +8,11 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -19,23 +21,33 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.coil.rememberCoilPainter
 import stas.batura.podlodkacompose.data.out.SessionDay
+import stas.batura.podlodkacompose.data.rawdata.getTestSession
 import stas.batura.podlodkacompose.data.room.Session
 import stas.batura.podlodkacompose.ui.theme.PodlodkaComposeTheme
 
 @Composable
-fun SessionItem(session: Session, modifier: Modifier, onSessClick: (Session) -> Unit) {
+fun SessionItem(
+    session: Session,
+    modifier: Modifier,
+    onSessClick: (Session) -> Unit,
+    addToFavClick: (Session) -> Unit
+    ) {
     Card(
         shape = RoundedCornerShape(8.dp),
-        modifier = modifier.padding(16.dp).clickable {
-            onSessClick(session) } ,
+        modifier = modifier.padding(16.dp),
         elevation = 16.dp,
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically, modifier = modifier.padding(12.dp).clickable {
-            onSessClick(session) })
+        Row(verticalAlignment = Alignment.CenterVertically, modifier = modifier
+            .padding(12.dp)
+            .clickable {
+                onSessClick(session)
+            })
         {
-            SessionImage(session = session, modifier = modifier)
-            Spacer(Modifier.width(10.dp))
-            SessionContent(session = session, modifier = modifier)
+            SessionImage(session = session, modifier = Modifier)
+
+            SessionContent(session = session, modifier = Modifier.weight(1.0f))
+
+            FavButton(session = session, addToFavClick = addToFavClick)
         }
     }
 }
@@ -56,8 +68,26 @@ fun SessionImage(session: Session, modifier: Modifier) {
             request = session.imageUrl
         ),
         contentDescription = "photo",
-        modifier = Modifier.size(80.dp).clip(CircleShape)
+        modifier = Modifier
+            .size(80.dp)
+            .clip(CircleShape)
     )
+}
+
+@Composable
+fun FavButton(session: Session, addToFavClick: (Session) -> Unit) {
+    Button(onClick = { addToFavClick(session) }) {
+        Text(text = "fav")
+    }
+}
+
+@Preview
+@Composable
+fun ItemPreview() {
+    val sess = remember{ getTestSession()}
+    SessionItem(session = sess, modifier = Modifier.fillMaxWidth(), onSessClick = { /*TODO*/ }) {
+
+    }
 }
 
 //@ExperimentalFoundationApi

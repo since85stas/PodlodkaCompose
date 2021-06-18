@@ -1,9 +1,6 @@
 package stas.batura.podlodkacompose.data.room
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -15,9 +12,15 @@ interface SessionsDao {
     @Query("SELECT * from sessions_table ORDER BY id")
     fun getAllSessions() : Flow<List<Session>>
 
+    @Query("SELECT * FROM sessions_table WHERE id IN (SELECT DISTINCT(sessionId) FROM favourites)")
+    fun getFavouriteSessions(): Flow<List<Session>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllSessions(sessions: List<Session>)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertToFav(fav: Favourite)
+
+    @Delete
+    suspend fun removeFromFav(fav: Favourite)
 }

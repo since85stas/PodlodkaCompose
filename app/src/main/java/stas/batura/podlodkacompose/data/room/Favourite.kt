@@ -6,11 +6,10 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "favourites")
 data class Favourite constructor(
-    var sessionId: String = "0",
-    @PrimaryKey(autoGenerate = true)
-    var id: Long = 0
+    @PrimaryKey()
+    var sessionId: String = "0"
 ) {
-    @Ignore
-    constructor(): this("0",0)
+//    @PrimaryKey(autoGenerate = true)
+//    var id: Long = 0
 }
 

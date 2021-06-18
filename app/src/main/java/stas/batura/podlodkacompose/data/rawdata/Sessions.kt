@@ -149,3 +149,14 @@ val MockSessions = listOf(
         imageUrl = "https://static.tildacdn.com/tild3433-3138-4165-b135-653934323134/IMG_0653.JPG"
     ),
 )
+
+fun getTestSession(): Session {
+    return     Session(
+        id = "18",
+        speaker = "Николай Иготти",
+        date = "29 апреля",
+        timeInterval = "18:00-19:00",
+        description = "Интервью: Compose Архитектура",
+        imageUrl = "https://static.tildacdn.com/tild3433-3138-4165-b135-653934323134/IMG_0653.JPG"
+    )
+}
