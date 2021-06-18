@@ -8,9 +8,8 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import stas.batura.podlodkacompose.data.IRepository
-import stas.batura.podlodkacompose.data.room.Favourite
 import stas.batura.podlodkacompose.data.room.Session
-import stas.batura.podlodkacompose.data.room.SessionF
+import stas.batura.podlodkacompose.data.room.SessionFav
 import stas.batura.podlodkacompose.data.room.combineSessionsWithFavs
 import stas.batura.podlodkacompose.di.ApplicationScope
 
@@ -34,7 +33,7 @@ class SessionsViewModel @ViewModelInject constructor(
 
     val favourites = repository.getFavourites().asLiveData()
 
-    val sessWithFAv: LiveData<List<SessionF>> = repository.getSessions().combine(repository.getFavourites()) { s,f ->
+    val sessWithFavAv: LiveData<List<SessionFav>> = repository.getSessions().combine(repository.getFavourites()) { s, f ->
         combineSessionsWithFavs(s,f)
     }.asLiveData()
 
@@ -65,6 +64,10 @@ class SessionsViewModel @ViewModelInject constructor(
 
     fun addToFav(session: Session) {
         repository.insertFav(session = session)
+    }
+
+    fun remFromFav(session: Session) {
+        repository.deleteFav(session = session)
     }
 
 }

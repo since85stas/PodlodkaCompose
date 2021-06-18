@@ -1,16 +1,17 @@
 package stas.batura.podlodkacompose.data.out
 
 import stas.batura.podlodkacompose.data.room.Session
+import stas.batura.podlodkacompose.data.room.SessionFav
 import java.util.*
 import kotlin.collections.HashMap
 
 data class SessionDay(
     var day: String = "",
-    var sessions: List<Session> = emptyList()
+    var sessions: List<SessionFav> = emptyList()
 )
 
-fun getSessionDays(sessions: List<Session>): Map<String, MutableList<Session>> {
-    val dayMap = TreeMap<String, MutableList<Session>>()
+fun getSessionDays(sessions: List<SessionFav>): Map<String, MutableList<SessionFav>> {
+    val dayMap = TreeMap<String, MutableList<SessionFav>>()
     for (session in sessions) {
         if (dayMap.contains(session.date)) {
             dayMap.get(session.date)!!.add(session)

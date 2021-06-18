@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import stas.batura.podlodkacompose.data.room.Session
+import stas.batura.podlodkacompose.data.room.SessionFav
 
 /**
  * Stateless component that is responsible for the entire screen.
@@ -22,25 +23,27 @@ import stas.batura.podlodkacompose.data.room.Session
 @ExperimentalFoundationApi
 @Composable
 fun SessionsScreen(
-    grouped:  Map<String, List<Session>>,
+    grouped:  Map<String, List<SessionFav>>,
     onSessClick: (Session) -> Unit,
-    addToFavClick: (Session) -> Unit
+    addToFavClick: (Session) -> Unit,
+    remFromFavClick: (Session) -> Unit
 ) {
     Column {
         LazyColumn(
             modifier = Modifier.fillMaxWidth(),
 //            contentPadding = PaddingValues(top = 8.dp)
         ) {
-            grouped.forEach { (initial, contactsForInitial) ->
+            grouped.forEach { (day, sessions) ->
                 stickyHeader {
-                    Text(initial)
+                    Text(day)
                 }
 
-                items(contactsForInitial) { session ->
+                items(sessions) { session ->
                     SessionItem(
                         session = session,
                         onSessClick = onSessClick,
-                        addToFavClick = addToFavClick
+                        addToFavClick = addToFavClick,
+                        remFromFavClick = remFromFavClick
                         )
                 }
             }
