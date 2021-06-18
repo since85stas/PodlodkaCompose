@@ -40,15 +40,22 @@ fun SessionItem(
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-            .clickable {
-                onSessClick(session)
-            })
+                .fillMaxWidth()
+                .clickable {
+                    onSessClick(session)
+                })
         {
-            SessionImage(session = session)
+            Box(modifier = Modifier) {
+                SessionImage(session = session)
+            }
 
-//            SessionContent(session = session)
+            Box(modifier = Modifier.weight(1.0f)) {
+                SessionContent(session = session)
+            }
 
-//            FavButton(session = session, addToFavClick = addToFavClick)
+            Box(modifier = Modifier) {
+                FavButton(session = session, addToFavClick = addToFavClick)
+            }
         }
     }
 }
@@ -73,15 +80,15 @@ fun SessionImage(session: Session) {
         ),
         contentDescription = "photo",
         modifier = Modifier
-            .size(80.dp).fillMaxSize()
+            .size(80.dp)
 //            .clip(CircleShape)
     )
 }
 
 @Composable
 fun FavButton(session: Session, addToFavClick: (Session) -> Unit) {
-    Button(onClick = { addToFavClick(session) }) {
-        Text(text = "fav")
+    Button(onClick = { addToFavClick(session) })  {
+
     }
 }
 
