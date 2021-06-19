@@ -1,11 +1,9 @@
 package stas.batura.podlodkacompose.ui.sessions
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Button
 import androidx.compose.material.Text
@@ -23,40 +21,42 @@ import stas.batura.podlodkacompose.data.room.SessionFav
 @ExperimentalFoundationApi
 @Composable
 fun SessionsScreen(
+    favSess: List<Session>,
     grouped:  Map<String, List<SessionFav>>,
     onSessClick: (Session) -> Unit,
     addToFavClick: (Session) -> Unit,
     remFromFavClick: (Session) -> Unit
 ) {
     Column {
-        LazyColumn(
-            modifier = Modifier.fillMaxWidth(),
-//            contentPadding = PaddingValues(top = 8.dp)
-        ) {
-            grouped.forEach { (day, sessions) ->
-                stickyHeader {
-                    Text(day)
-                }
+        Box(modifier = Modifier.weight(1.0f)) {
+            LazyRow(modifier = Modifier.fillMaxHeight()) {
+                    items(favSess) { session ->
+                        SessionFavItem(session = session)
+                    }
+            }
+        }
 
-                items(sessions) { session ->
-                    SessionItem(
-                        session = session,
-                        onSessClick = onSessClick,
-                        addToFavClick = addToFavClick,
-                        remFromFavClick = remFromFavClick
+        Box(modifier = Modifier.weight(5.0f)) {
+            LazyColumn(
+                modifier = Modifier.fillMaxWidth(),
+//            contentPadding = PaddingValues(top = 8.dp)
+            ) {
+                grouped.forEach { (day, sessions) ->
+                    stickyHeader {
+                        Text(day)
+                    }
+
+                    items(sessions) { session ->
+                        SessionItem(
+                            session = session,
+                            onSessClick = onSessClick,
+                            addToFavClick = addToFavClick,
+                            remFromFavClick = remFromFavClick
                         )
+                    }
                 }
             }
         }
 
-//             For quick testing, a random item generator button
-        Button(
-            onClick = {  },
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth(),
-        ) {
-            Text("Add random item")
-        }
     }
 }

@@ -45,11 +45,13 @@ class SessionsFragment: Fragment() {
             composeView.setContent {
 //                val days: List<SessionDay> by viewModel.days.observeAsState(initial = emptyList())
                 val sess: List<SessionFav> by viewModel.sessWithFavAv.observeAsState(initial = emptyList())
+                val favSess: List<Session> by viewModel.favSessions.observeAsState(initial = emptyList())
 //                val grouped:  Map<String, List<Session>> = sess.groupBy { it.date }
                 val gr = getSessionDays(sess)
                 SessionsScreen(
                     grouped= gr,
-                    onSessClick = this@SessionsFragment::goToDetailFragment,
+                    favSess = favSess,
+                    onSessClick = ::goToDetailFragment,
                     addToFavClick = viewModel::addToFav,
                     remFromFavClick = viewModel::remFromFav
                     )
