@@ -28,13 +28,19 @@ fun SessionsScreen(
     remFromFavClick: (Session) -> Unit
 ) {
     Column {
-        Box(modifier = Modifier.weight(1.0f)) {
-            LazyRow(modifier = Modifier.fillMaxHeight()) {
+        Text(modifier = Modifier.padding(12.dp),text = "Избранное")
+
+        if (favSess.size >0 ) {
+            Box(modifier = Modifier.weight(1.0f)) {
+                LazyRow(modifier = Modifier.fillMaxHeight()) {
                     items(favSess) { session ->
                         SessionFavItem(session = session)
                     }
+                }
             }
         }
+
+        Text(modifier = Modifier.padding(12.dp),text = "Сессии")
 
         Box(modifier = Modifier.weight(5.0f)) {
             LazyColumn(

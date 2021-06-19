@@ -26,13 +26,15 @@ class SessionsViewModel @ViewModelInject constructor(
     private val _spinner = MutableLiveData<Boolean>(false)
     val spinner: LiveData<Boolean> get() = _spinner
 
+    // список сессий
     val sessions = repository.getSessions().asLiveData()
 
-//    val days = repository.getDays().asLiveData()
+    // список избранных сессий
     val favSessions = repository.getFavSessions().asLiveData()
 
     val favourites = repository.getFavourites().asLiveData()
 
+    // список сессий с избранным
     val sessWithFavAv: LiveData<List<SessionFav>> = repository.getSessions().combine(repository.getFavourites()) { s, f ->
         combineSessionsWithFavs(s,f)
     }.asLiveData()
@@ -62,10 +64,12 @@ class SessionsViewModel @ViewModelInject constructor(
         }
     }
 
+    // добавляем сессию в избранное
     fun addToFav(session: Session) {
         repository.insertFav(session = session)
     }
 
+    // убираем сессию из избранного
     fun remFromFav(session: Session) {
         repository.deleteFav(session = session)
     }

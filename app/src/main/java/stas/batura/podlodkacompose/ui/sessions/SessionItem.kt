@@ -45,13 +45,14 @@ fun SessionItem(
     ) {
     Card(
         shape = RoundedCornerShape(8.dp),
-//        modifier = Modifier.padding(16.dp),
+        modifier = Modifier.padding(16.dp),
         elevation = 16.dp,
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(12.dp)
                 .clickable {
                     onSessClick(session.toSession())
                 })
@@ -95,7 +96,7 @@ fun SessionImage(session: Session) {
         ),
         contentDescription = "photo",
         modifier = Modifier
-            .size(80.dp)
+            .size(80.dp).padding(end = 12.dp)
 //            .clip(CircleShape)
     )
 }

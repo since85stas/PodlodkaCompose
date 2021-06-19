@@ -43,10 +43,10 @@ class SessionsFragment: Fragment() {
         )
         bindings.apply {
             composeView.setContent {
-//                val days: List<SessionDay> by viewModel.days.observeAsState(initial = emptyList())
-                val sess: List<SessionFav> by viewModel.sessWithFavAv.observeAsState(initial = emptyList())
                 val favSess: List<Session> by viewModel.favSessions.observeAsState(initial = emptyList())
-//                val grouped:  Map<String, List<Session>> = sess.groupBy { it.date }
+                val sess: List<SessionFav> by viewModel.sessWithFavAv.observeAsState(initial = emptyList())
+
+                // сортируем сессии по дням
                 val gr = getSessionDays(sess)
                 SessionsScreen(
                     grouped= gr,
@@ -73,6 +73,7 @@ class SessionsFragment: Fragment() {
         Toast.makeText(requireContext(), text, Toast.LENGTH_LONG).show()
     }
 
+    // переходим на фрагмент с информацией
     private fun goToDetailFragment(session: Session) {
         val action = SessionsFragmentDirections.actionSessionsFragmentToDetailFragment(session)
         findNavController().navigate(action)
