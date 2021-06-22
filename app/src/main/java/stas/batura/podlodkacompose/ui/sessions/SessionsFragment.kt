@@ -56,7 +56,8 @@ class SessionsFragment: Fragment() {
                         favSess = favSess,
                         onSessClick = ::goToDetailFragment,
                         addToFavClick = viewModel::addToFav,
-                        remFromFavClick = viewModel::remFromFav
+                        remFromFavClick = viewModel::remFromFav,
+                        onTextChange = viewModel::onSearchTextChange
                     )
                 }
             }

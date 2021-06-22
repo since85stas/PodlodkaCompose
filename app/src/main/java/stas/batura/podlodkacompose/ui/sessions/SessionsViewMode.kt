@@ -84,4 +84,8 @@ class SessionsViewModel @ViewModelInject constructor(
         repository.deleteFav(session = session)
     }
 
+    fun onSearchTextChange(search:String) {
+        Log.d(TAG, "onSearchTextChange: $search")
+    }
+
 }

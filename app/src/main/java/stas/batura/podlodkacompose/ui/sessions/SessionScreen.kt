@@ -1,20 +1,24 @@
 package stas.batura.podlodkacompose.ui.sessions
 
-import android.graphics.Paint
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateMapOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import stas.batura.podlodkacompose.data.room.Session
 import stas.batura.podlodkacompose.data.room.SessionFav
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 
 /**
  * Stateless component that is responsible for the entire screen.
@@ -28,9 +32,20 @@ fun SessionsScreen(
     grouped:  Map<String, List<SessionFav>>,
     onSessClick: (Session) -> Unit,
     addToFavClick: (Session) -> Unit,
-    remFromFavClick: (Session) -> Unit
+    remFromFavClick: (Session) -> Unit,
+    onTextChange: (String) -> Unit,
 ) {
     Column {
+
+        Surface {
+            var text by remember { mutableStateOf("") }
+            TextField(
+                value = text,
+                onValueChange = onTextChange,
+                label = { Text("Label") }
+            )
+        }
+
         Surface {
             Text(
                 modifier = Modifier.padding(12.dp),
