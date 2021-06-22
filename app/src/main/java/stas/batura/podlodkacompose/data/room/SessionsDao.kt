@@ -18,6 +18,9 @@ interface SessionsDao {
     @Query("SELECT * FROM favourites ORDER BY sessionId")
     fun getFavourites(): Flow<List<Favourite>>
 
+    @Query("SELECT Count(*) FROM favourites")
+    suspend fun getNumberOfFavs(): Int
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllSessions(sessions: List<Session>)
 

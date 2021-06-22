@@ -46,7 +46,7 @@ fun SessionItem(
     Card(
         shape = RoundedCornerShape(8.dp),
         modifier = Modifier.padding(16.dp),
-        elevation = 16.dp,
+        elevation = 8.dp,
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,

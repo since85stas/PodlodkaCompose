@@ -58,7 +58,7 @@ class SessionsFragment: Fragment() {
             }
         }
 
-        viewModel.sessWithFavAv.observe(viewLifecycleOwner) {
+        viewModel.toastTex.observe(viewLifecycleOwner) {
             Log.d(TAG, "onCreateView: $it")
         }
 

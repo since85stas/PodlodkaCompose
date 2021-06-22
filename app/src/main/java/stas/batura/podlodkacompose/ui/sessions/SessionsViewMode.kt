@@ -66,7 +66,12 @@ class SessionsViewModel @ViewModelInject constructor(
 
     // добавляем сессию в избранное
     fun addToFav(session: Session) {
-        repository.insertFav(session = session)
+        launchDataLoad {
+            val res = repository.insertFav(session = session)
+            if (res != "") {
+                _toastText.postValue(res)
+            }
+        }
     }
 
     // убираем сессию из избранного
