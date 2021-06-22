@@ -1,11 +1,14 @@
 package stas.batura.podlodkacompose.ui.sessions
 
+import android.graphics.Paint
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Button
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -28,10 +31,15 @@ fun SessionsScreen(
     remFromFavClick: (Session) -> Unit
 ) {
     Column {
-        Text(modifier = Modifier.padding(12.dp),text = "Избранное")
-
+        Surface {
+            Text(
+                modifier = Modifier.padding(12.dp),
+                text = "Избранное",
+                style = MaterialTheme.typography.subtitle2
+            )
+        }
         if (favSess.size >0 ) {
-            Box(modifier = Modifier.weight(1.0f)) {
+            Box(modifier = Modifier.height(170.dp)) {
                 LazyRow(modifier = Modifier.fillMaxHeight()) {
                     items(favSess) { session ->
                         SessionFavItem(session = session)
@@ -40,7 +48,12 @@ fun SessionsScreen(
             }
         }
 
-        Text(modifier = Modifier.padding(12.dp),text = "Сессии")
+        Surface {
+            Text(
+                modifier = Modifier.padding(12.dp),
+                text = "Сессии",
+                style = MaterialTheme.typography.subtitle2)
+        }
 
         Box(modifier = Modifier.weight(5.0f)) {
             LazyColumn(
@@ -49,7 +62,12 @@ fun SessionsScreen(
             ) {
                 grouped.forEach { (day, sessions) ->
                     stickyHeader {
-                        Text(day)
+                        Surface {
+                            Text(
+                                modifier = Modifier.padding(12.dp),
+                                text = day,
+                                style = MaterialTheme.typography.body1)
+                        }
                     }
 
                     items(sessions) { session ->

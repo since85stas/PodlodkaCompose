@@ -19,6 +19,7 @@ import stas.batura.podlodkacompose.databinding.DetailFragmentBinding
 import stas.batura.podlodkacompose.databinding.SessionsFragmentBinding
 import stas.batura.podlodkacompose.ui.sessions.SessionItem
 import stas.batura.podlodkacompose.ui.sessions.SessionsViewModel
+import stas.batura.podlodkacompose.ui.theme.PodlodkaComposeTheme
 
 private val TAG = DetailFragment::class.java.simpleName
 
@@ -46,7 +47,9 @@ class DetailFragment: Fragment() {
 
         bindings.apply {
             composeView.setContent {
-                DetailScreen(session = args.session)
+                PodlodkaComposeTheme() {
+                    DetailScreen(session = args.session)
+                }
             }
         }
 

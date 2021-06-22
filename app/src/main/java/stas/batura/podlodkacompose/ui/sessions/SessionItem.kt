@@ -9,10 +9,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
@@ -78,11 +75,11 @@ fun SessionItem(
 
 @Composable
 fun SessionContent(session: Session) {
-//    Column() {
-//        Text(text = "${session.speaker}")
-//        Text(text = "${session.timeInterval}")
-        Text(text = "${session.description}")
-//    }
+    Column() {
+        Text(text = "${session.speaker}", style = MaterialTheme.typography.subtitle1)
+        Text(text = "${session.timeInterval}", style = MaterialTheme.typography.subtitle1)
+        Text(text = "${session.description}", style = MaterialTheme.typography.body1)
+    }
 }
 
 @Composable
@@ -97,7 +94,6 @@ fun SessionImage(session: Session) {
         contentDescription = "photo",
         modifier = Modifier
             .size(80.dp).padding(end = 12.dp)
-//            .clip(CircleShape)
     )
 }
 
@@ -119,26 +115,4 @@ fun FavButton(
     }
 }
 
-//@Preview
-//@Composable
-//fun ItemPreview() {
-//    val sess = remember{ getTestSession()}
-//    SessionItem(session = sess, onSessClick = { /*TODO*/ }) {
-//
-//    }
-//}
-
-//@ExperimentalFoundationApi
-//@Composable
-//fun DayItem(day: SessionDay, modifier: Modifier) {
-//
-//        LazyColumn(
-//            contentPadding = PaddingValues(top = 8.dp)
-//        ) {
-//            stickyHeader { Text(text = day.day, modifier.padding(bottom = 12.dp)) }
-//            items(day.sessions) { session ->
-//                SessionItem(session = session, modifier = Modifier.fillParentMaxWidth())
-//            }
-//        }
-//}
 

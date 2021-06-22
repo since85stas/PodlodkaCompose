@@ -65,12 +65,4 @@ class Repository @Inject constructor(
         return sessionsDao.getFavourites()
     }
 
-//    fun sendError(descr: String): Flow<String> {
-//        error.
-//    }
-
-    //    override fun getDays(): Flow<List<SessionDay>> {
-////        return sessionsDao.getAllSessions().map { s -> getSessionDays(s) }
-//        return null
-//    }
 }

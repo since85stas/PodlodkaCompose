@@ -20,6 +20,7 @@ import stas.batura.podlodkacompose.data.out.getSessionDays
 import stas.batura.podlodkacompose.data.room.Session
 import stas.batura.podlodkacompose.data.room.SessionFav
 import stas.batura.podlodkacompose.databinding.SessionsFragmentBinding
+import stas.batura.podlodkacompose.ui.theme.PodlodkaComposeTheme
 
 private val TAG = SessionsFragment::class.java.simpleName
 
@@ -49,13 +50,15 @@ class SessionsFragment: Fragment() {
 
                 // сортируем сессии по дням
                 val gr = getSessionDays(sess)
-                SessionsScreen(
-                    grouped= gr,
-                    favSess = favSess,
-                    onSessClick = ::goToDetailFragment,
-                    addToFavClick = viewModel::addToFav,
-                    remFromFavClick = viewModel::remFromFav
+                PodlodkaComposeTheme() {
+                    SessionsScreen(
+                        grouped = gr,
+                        favSess = favSess,
+                        onSessClick = ::goToDetailFragment,
+                        addToFavClick = viewModel::addToFav,
+                        remFromFavClick = viewModel::remFromFav
                     )
+                }
             }
         }
 
