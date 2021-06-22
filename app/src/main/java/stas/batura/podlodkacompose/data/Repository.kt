@@ -2,8 +2,7 @@ package stas.batura.podlodkacompose.data
 
 import android.util.Log
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import stas.batura.podlodkacompose.data.out.SessionDay
 import stas.batura.podlodkacompose.data.out.getSessionDays
@@ -17,6 +16,8 @@ import javax.inject.Singleton
 
 private val TAG = Repository::class.java.simpleName
 
+private val MAX_FAVOURITES = 3
+
 @Singleton
 class Repository @Inject constructor(
     val sessionsDao: SessionsDao,
@@ -25,6 +26,10 @@ class Repository @Inject constructor(
 
     init {
         Log.d(TAG, ": rep init")
+    }
+
+    override fun getError(): Flow<String> {
+        TODO("Not yet implemented")
     }
 
     override suspend fun addInitsessions() {
@@ -40,10 +45,14 @@ class Repository @Inject constructor(
         return sessionsDao.getFavouriteSessions()
     }
 
-    override fun insertFav(session: Session) {
-        externalScope.launch {
-            sessionsDao.insertToFav(Favourite(session.id))
-        }
+    override suspend fun insertFav(session: Session): FavResult {
+            val inTable = sessionsDao.getNumberOfFavs()
+            if (inTable < MAX_FAVOURITES) {
+                sessionsDao.insertToFav(Favourite(session.id))
+                return Ok
+            } else {
+                return Error("Не удалось добавить сессию в избранное")
+            }
     }
 
     override fun deleteFav(session: Session) {
@@ -56,8 +65,4 @@ class Repository @Inject constructor(
         return sessionsDao.getFavourites()
     }
 
-    //    override fun getDays(): Flow<List<SessionDay>> {
-////        return sessionsDao.getAllSessions().map { s -> getSessionDays(s) }
-//        return null
-//    }
 }

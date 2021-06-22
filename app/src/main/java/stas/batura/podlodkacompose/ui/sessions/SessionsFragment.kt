@@ -13,12 +13,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import stas.batura.podlodkacompose.R
 import stas.batura.podlodkacompose.data.out.getSessionDays
 import stas.batura.podlodkacompose.data.room.Session
 import stas.batura.podlodkacompose.data.room.SessionFav
 import stas.batura.podlodkacompose.databinding.SessionsFragmentBinding
+import stas.batura.podlodkacompose.ui.theme.PodlodkaComposeTheme
 
 private val TAG = SessionsFragment::class.java.simpleName
 
@@ -48,18 +50,25 @@ class SessionsFragment: Fragment() {
 
                 // сортируем сессии по дням
                 val gr = getSessionDays(sess)
-                SessionsScreen(
-                    grouped= gr,
-                    favSess = favSess,
-                    onSessClick = ::goToDetailFragment,
-                    addToFavClick = viewModel::addToFav,
-                    remFromFavClick = viewModel::remFromFav
+                PodlodkaComposeTheme() {
+                    SessionsScreen(
+                        grouped = gr,
+                        favSess = favSess,
+                        onSessClick = ::goToDetailFragment,
+                        addToFavClick = viewModel::addToFav,
+                        remFromFavClick = viewModel::remFromFav
                     )
+                }
             }
         }
 
-        viewModel.sessWithFavAv.observe(viewLifecycleOwner) {
+        viewModel.toastTex.observe(viewLifecycleOwner) {
             Log.d(TAG, "onCreateView: $it")
+            Snackbar.make(
+                bindings.root,
+                it,
+                Snackbar.LENGTH_SHORT
+            ).show()
         }
 
         return bindings.root

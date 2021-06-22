@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,12 +26,32 @@ fun DetailScreen(session: Session) {
             ),
             contentDescription = "photo",
             modifier = Modifier
-                .width(200.dp).height(200.dp).scale(1.0f).clip(
-                    CircleShape)
+                .width(200.dp)
+                .height(200.dp)
+                .padding(bottom = 12.dp)
+                .scale(1.0f)
+                .clip(
+                    CircleShape
+                )
         )
         Divider()
-        Text(text = session.speaker)
-        Text(text = "${session.date}, ${session.timeInterval}")
-        Text(text = session.description)
+
+        Surface() {
+            Text(
+                text = session.speaker,
+                style = MaterialTheme.typography.subtitle2)
+        }
+
+        Surface() {
+            Text(
+                text = "${session.date}, ${session.timeInterval}",
+                style = MaterialTheme.typography.subtitle1
+            )
+        }
+        Surface() {
+            Text(
+                text = session.description,
+                style = MaterialTheme.typography.body1)
+        }
     }
 }

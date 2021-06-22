@@ -7,7 +7,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import stas.batura.podlodkacompose.data.Error
 import stas.batura.podlodkacompose.data.IRepository
+import stas.batura.podlodkacompose.data.Ok
 import stas.batura.podlodkacompose.data.room.Session
 import stas.batura.podlodkacompose.data.room.SessionFav
 import stas.batura.podlodkacompose.data.room.combineSessionsWithFavs
@@ -66,7 +68,15 @@ class SessionsViewModel @ViewModelInject constructor(
 
     // добавляем сессию в избранное
     fun addToFav(session: Session) {
-        repository.insertFav(session = session)
+        launchDataLoad {
+            val res = repository.insertFav(session = session)
+            when (res) {
+                is Ok -> Log.d(TAG, "addToFav: ok")
+                is Error -> {
+                    _toastText.postValue(res.err)
+                }
+            }
+        }
     }
 
     // убираем сессию из избранного
