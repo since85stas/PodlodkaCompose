@@ -45,13 +45,13 @@ class Repository @Inject constructor(
         return sessionsDao.getFavouriteSessions()
     }
 
-    override suspend fun insertFav(session: Session): String {
+    override suspend fun insertFav(session: Session): FavResult {
             val inTable = sessionsDao.getNumberOfFavs()
             if (inTable < MAX_FAVOURITES) {
                 sessionsDao.insertToFav(Favourite(session.id))
-                return ""
+                return Ok
             } else {
-                return ("Слишком много избранных")
+                return Error("Не удалось добавить сессию в избранное")
             }
     }
 

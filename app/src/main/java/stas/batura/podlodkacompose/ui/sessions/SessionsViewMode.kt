@@ -7,7 +7,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import stas.batura.podlodkacompose.data.Error
 import stas.batura.podlodkacompose.data.IRepository
+import stas.batura.podlodkacompose.data.Ok
 import stas.batura.podlodkacompose.data.room.Session
 import stas.batura.podlodkacompose.data.room.SessionFav
 import stas.batura.podlodkacompose.data.room.combineSessionsWithFavs
@@ -68,8 +70,11 @@ class SessionsViewModel @ViewModelInject constructor(
     fun addToFav(session: Session) {
         launchDataLoad {
             val res = repository.insertFav(session = session)
-            if (res != "") {
-                _toastText.postValue(res)
+            when (res) {
+                is Ok -> Log.d(TAG, "addToFav: ok")
+                is Error -> {
+                    _toastText.postValue(res.err)
+                }
             }
         }
     }

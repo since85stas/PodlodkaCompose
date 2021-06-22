@@ -14,7 +14,7 @@ interface IRepository {
 //    fun getDays(): Flow<List<SessionDay>>
     fun getFavSessions(): Flow<List<Session>>
 
-    suspend fun insertFav(session: Session): String
+    suspend fun insertFav(session: Session): FavResult
 
     fun deleteFav(session: Session)
 

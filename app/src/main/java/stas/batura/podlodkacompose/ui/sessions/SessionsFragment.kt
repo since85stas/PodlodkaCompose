@@ -13,6 +13,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import stas.batura.podlodkacompose.R
 import stas.batura.podlodkacompose.data.out.getSessionDays
@@ -60,6 +61,11 @@ class SessionsFragment: Fragment() {
 
         viewModel.toastTex.observe(viewLifecycleOwner) {
             Log.d(TAG, "onCreateView: $it")
+            Snackbar.make(
+                bindings.root,
+                it,
+                Snackbar.LENGTH_SHORT
+            ).show()
         }
 
         return bindings.root
