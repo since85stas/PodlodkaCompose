@@ -13,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import stas.batura.podlodkacompose.R
-import stas.batura.podlodkacompose.data.out.getSessionDays
 import stas.batura.podlodkacompose.data.room.Session
 import stas.batura.podlodkacompose.databinding.DetailFragmentBinding
 import stas.batura.podlodkacompose.databinding.SessionsFragmentBinding

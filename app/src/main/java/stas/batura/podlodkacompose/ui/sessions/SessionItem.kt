@@ -27,7 +27,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.transform.CircleCropTransformation
 import com.google.accompanist.coil.rememberCoilPainter
-import stas.batura.podlodkacompose.data.out.SessionDay
 import stas.batura.podlodkacompose.data.rawdata.getTestSession
 import stas.batura.podlodkacompose.data.room.Session
 import stas.batura.podlodkacompose.data.room.SessionFav

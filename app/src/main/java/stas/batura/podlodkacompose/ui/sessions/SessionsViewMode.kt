@@ -49,7 +49,8 @@ class SessionsViewModel @ViewModelInject constructor(
 
     private fun loadData() {
         launchDataLoad {
-            repository.addInitsessions()
+//            repository.addInitsessions()
+            repository.addInitsessionsNet()
         }
     }
 

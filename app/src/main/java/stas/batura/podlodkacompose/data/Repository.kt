@@ -4,8 +4,7 @@ import android.util.Log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import stas.batura.podlodkacompose.data.out.SessionDay
-import stas.batura.podlodkacompose.data.out.getSessionDays
+import stas.batura.podlodkacompose.data.net.IRetrofit
 import stas.batura.podlodkacompose.data.rawdata.MockSessions
 import stas.batura.podlodkacompose.data.room.Favourite
 import stas.batura.podlodkacompose.data.room.Session
@@ -21,6 +20,7 @@ private val MAX_FAVOURITES = 3
 @Singleton
 class Repository @Inject constructor(
     val sessionsDao: SessionsDao,
+    val netApi: IRetrofit,
     @ApplicationScope val externalScope: CoroutineScope
 ): IRepository {
 
@@ -35,6 +35,11 @@ class Repository @Inject constructor(
     override suspend fun addInitsessions() {
         Log.d(TAG, "addInitsessions: ")
         sessionsDao.insertAllSessions(MockSessions)
+    }
+
+    override suspend fun addInitsessionsNet() {
+        val fromNet = netApi.getUsers()
+        sessionsDao.insertAllSessions(fromNet)
     }
 
     override fun getSessions(): Flow<List<Session>> {
