@@ -1,12 +1,17 @@
 package stas.batura.podlodkacompose.ui.sessions
 
+import android.widget.ImageButton
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
@@ -19,6 +24,8 @@ import stas.batura.podlodkacompose.data.room.Session
 import stas.batura.podlodkacompose.data.room.SessionFav
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.text.input.TextFieldValue
 
 /**
  * Stateless component that is responsible for the entire screen.
@@ -33,17 +40,26 @@ fun SessionsScreen(
     onSessClick: (Session) -> Unit,
     addToFavClick: (Session) -> Unit,
     remFromFavClick: (Session) -> Unit,
-    onTextChange: (String) -> Unit,
+    onSearchClick: (String) -> Unit,
 ) {
     Column {
 
         Surface {
             var text by remember { mutableStateOf("") }
-            TextField(
-                value = text,
-                onValueChange = onTextChange,
-                label = { Text("Label") }
-            )
+            Row() {
+                OutlinedTextField(
+                    value = text,
+                    onValueChange = { text = it },
+                    label = { Text("Label") },
+                    modifier = Modifier.weight(1.0f).padding(end = 12.dp)
+                )
+                Box(modifier = Modifier.align(Alignment.CenterVertically)) {
+                    Button(
+                        onClick = { onSearchClick(text) },
+                        content = { Text("Искать") },
+                    )
+                }
+            }
         }
 
         Surface {
@@ -98,4 +114,14 @@ fun SessionsScreen(
         }
 
     }
+}
+
+@Composable
+fun SearchButton(
+    onSearchClick: (String) -> Unit
+) {
+    Button(
+        onClick = { onSearchClick("") },
+        content = {Text("Искать")}
+    )
 }
