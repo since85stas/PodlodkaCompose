@@ -47,7 +47,7 @@ class SessionsFragment: Fragment() {
             composeView.setContent {
                 val favSess: List<Session> by viewModel.favSessions.observeAsState(initial = emptyList())
                 val sess: List<SessionFav> by viewModel.sessWithFavAv.observeAsState(initial = emptyList())
-                val showAnim: Boolean by viewModel.spinner.observeAsState(initial = true)
+                val showAnim: Boolean by viewModel.spinner.observeAsState(initial = false)
 
                 // сортируем сессии по дням
                 val gr = getSessionDays(sess)

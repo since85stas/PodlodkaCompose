@@ -37,7 +37,7 @@ class SessionsViewModel @ViewModelInject constructor(
     // список избранных сессий
     val favSessions = repository.getFavSessions().asLiveData()
 
-    // список сессий с избранным
+    // список сессий с идентификатором состоит ли она в избранном
     val sessWithFavAv: LiveData<List<SessionFav>> = sessions.combine(repository.getFavourites()) { s, f ->
         combineSessionsWithFavs(s,f)
     }.asLiveData()
@@ -49,7 +49,6 @@ class SessionsViewModel @ViewModelInject constructor(
 
     private fun loadData() {
         launchDataLoad {
-//            repository.addInitsessions()
             repository.addInitsessionsNet()
         }
     }
@@ -63,7 +62,7 @@ class SessionsViewModel @ViewModelInject constructor(
                 Log.d(TAG, "launchDataLoad: " + error)
                 _toastText.postValue("Internet problem")
             } finally {
-//                _spinner.postValue(false)
+                _spinner.postValue(false)
             }
         }
     }

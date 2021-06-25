@@ -32,24 +32,28 @@ class Repository @Inject constructor(
         TODO("Not yet implemented")
     }
 
+    // загрузка из файла
     override suspend fun addInitsessions() {
-        Log.d(TAG, "addInitsessions: ")
         sessionsDao.insertAllSessions(MockSessions)
     }
 
+    // загрузка с сети
     override suspend fun addInitsessionsNet() {
         val fromNet = netApi.getUsers()
         sessionsDao.insertAllSessions(fromNet)
     }
 
+    // список сессий
     override fun getSessions(): Flow<List<Session>> {
         return sessionsDao.getAllSessions()
     }
 
+    // список избрвнных сессий
     override fun getFavSessions(): Flow<List<Session>> {
         return sessionsDao.getFavouriteSessions()
     }
 
+    // добавление избранного
     override suspend fun insertFav(session: Session): FavResult {
             val inTable = sessionsDao.getNumberOfFavs()
             if (inTable < MAX_FAVOURITES) {
@@ -60,12 +64,14 @@ class Repository @Inject constructor(
             }
     }
 
+    // удаление избранного
     override fun deleteFav(session: Session) {
         externalScope.launch {
             sessionsDao.removeFromFav(Favourite(session.id))
         }
     }
 
+    // список избранного
     override fun getFavourites(): Flow<List<Favourite>> {
         return sessionsDao.getFavourites()
     }

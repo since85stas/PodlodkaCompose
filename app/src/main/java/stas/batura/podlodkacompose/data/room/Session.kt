@@ -6,6 +6,7 @@ import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 
+// базовый класс для хранения сессий
 @Entity(tableName = "sessions_table")
 data class Session (
     @PrimaryKey
