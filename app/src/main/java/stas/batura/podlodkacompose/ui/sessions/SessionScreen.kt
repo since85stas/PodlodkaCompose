@@ -41,17 +41,21 @@ fun SessionsScreen(
     addToFavClick: (Session) -> Unit,
     remFromFavClick: (Session) -> Unit,
     onSearchClick: (String) -> Unit,
+    showAnimation: Boolean
 ) {
     Column {
 
         Surface {
             var text by remember { mutableStateOf("") }
             Row() {
+                
                 OutlinedTextField(
                     value = text,
                     onValueChange = { text = it },
                     label = { Text("Label") },
-                    modifier = Modifier.weight(1.0f).padding(end = 12.dp)
+                    modifier = Modifier
+                        .weight(1.0f)
+                        .padding(end = 12.dp)
                 )
                 Box(modifier = Modifier.align(Alignment.CenterVertically)) {
                     Button(
@@ -79,12 +83,21 @@ fun SessionsScreen(
             }
         }
 
-        Surface {
-            Text(
-                modifier = Modifier.padding(12.dp),
-                text = "Сессии",
-                style = MaterialTheme.typography.subtitle2)
+        Row() {
+            Surface {
+                Text(
+                    modifier = Modifier.padding(12.dp),
+                    text = "Сессии",
+                    style = MaterialTheme.typography.subtitle2
+                )
+            }
+
+            if (showAnimation) {
+                InfinitelyPulsingHeart()
+            }
         }
+
+
 
         Box(modifier = Modifier.weight(5.0f)) {
             LazyColumn(

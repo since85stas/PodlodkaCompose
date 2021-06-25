@@ -63,7 +63,7 @@ class SessionsViewModel @ViewModelInject constructor(
                 Log.d(TAG, "launchDataLoad: " + error)
                 _toastText.postValue("Internet problem")
             } finally {
-                _spinner.postValue(false)
+//                _spinner.postValue(false)
             }
         }
     }

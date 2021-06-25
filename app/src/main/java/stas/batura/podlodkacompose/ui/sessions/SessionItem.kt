@@ -1,6 +1,7 @@
 package stas.batura.podlodkacompose.ui.sessions
 
-import android.graphics.Color
+import androidx.compose.animation.animateColor
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -15,11 +16,15 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.focusModifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Red
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -111,6 +116,54 @@ fun FavButton(
             Icons.Default.FavoriteBorder,
             "icon",
             modifier = Modifier.clickable { addToFavClick(session.toSession()) })
+    }
+}
+
+@Composable
+fun InfinitelyPulsingHeart() {
+    // Creates an [InfiniteTransition] instance for managing child animations.
+    val infiniteTransition = rememberInfiniteTransition()
+
+    // Creates a child animation of float type as a part of the [InfiniteTransition].
+    val scale by infiniteTransition.animateFloat(
+        initialValue = 1f,
+        targetValue = 1f,
+        animationSpec = infiniteRepeatable(
+            // Infinitely repeating a 1000ms tween animation using default easing curve.
+            animation = tween(1000),
+            // After each iteration of the animation (i.e. every 1000ms), the animation will
+            // start again from the [initialValue] defined above.
+            // This is the default [RepeatMode]. See [RepeatMode.Reverse] below for an
+            // alternative.
+            repeatMode = RepeatMode.Restart
+        )
+    )
+
+    // Creates a Color animation as a part of the [InfiniteTransition].
+    val color by infiniteTransition.animateColor(
+        initialValue = Red,
+        targetValue = Color(0xff800000), // Dark Red
+        animationSpec = infiniteRepeatable(
+            // Linearly interpolate between initialValue and targetValue every 1000ms.
+            animation = tween(1000, easing = LinearEasing),
+            // Once [TargetValue] is reached, starts the next iteration in reverse (i.e. from
+            // TargetValue to InitialValue). Then again from InitialValue to TargetValue. This
+            // [RepeatMode] ensures that the animation value is *always continuous*.
+            repeatMode = RepeatMode.Reverse
+        )
+    )
+
+    Box(modifier = Modifier.size(24.dp).padding(2.dp)) {
+        Icon(
+            Icons.Filled.Favorite,
+            contentDescription = null,
+            modifier = Modifier.align(Alignment.Center)
+                .graphicsLayer(
+                    scaleX = scale,
+                    scaleY = scale
+                ),
+            tint = color
+        )
     }
 }
 
