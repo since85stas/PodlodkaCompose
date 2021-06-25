@@ -1,5 +1,6 @@
 package stas.batura.podlodkacompose.data.room
 
+// расширенный класс хранящий сесию и отображающий в избранном ли она
 data class SessionFav(
     var id: String = "0",
     var speaker: String = "",
@@ -14,12 +15,4 @@ data class SessionFav(
     }
 }
 
-suspend fun combineSessionsWithFavs(sess: List<Session>, favs: List<Favourite>): List<SessionFav> {
-    val outList = mutableListOf<SessionFav>()
-    val favBool = favs.map { it.sessionId }
-    for (s in sess) {
-        val out = SessionFav(s.id, s.speaker,s.date,s.timeInterval,s.description,s.imageUrl, s.id in favBool)
-        outList.add(out)
-    }
-    return outList
-}
+

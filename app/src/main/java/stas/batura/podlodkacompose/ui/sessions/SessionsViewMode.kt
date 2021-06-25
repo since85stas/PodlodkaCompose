@@ -12,7 +12,6 @@ import stas.batura.podlodkacompose.data.IRepository
 import stas.batura.podlodkacompose.data.Ok
 import stas.batura.podlodkacompose.data.room.Session
 import stas.batura.podlodkacompose.data.room.SessionFav
-import stas.batura.podlodkacompose.data.room.combineSessionsWithFavs
 import stas.batura.podlodkacompose.di.ApplicationScope
 
 private val TAG = SessionsViewModel::class.java.simpleName
@@ -28,16 +27,18 @@ class SessionsViewModel @ViewModelInject constructor(
     private val _spinner = MutableLiveData<Boolean>(false)
     val spinner: LiveData<Boolean> get() = _spinner
 
+    val filterFlow = MutableStateFlow<String>("")
+
     // список сессий
-    val sessions = repository.getSessions().asLiveData()
+    val sessions = repository.getSessions().combine(filterFlow) { s, f ->
+        combineSessionsWithFilter(s,f)
+    }
 
     // список избранных сессий
     val favSessions = repository.getFavSessions().asLiveData()
 
-    val favourites = repository.getFavourites().asLiveData()
-
-    // список сессий с избранным
-    val sessWithFavAv: LiveData<List<SessionFav>> = repository.getSessions().combine(repository.getFavourites()) { s, f ->
+    // список сессий с идентификатором состоит ли она в избранном
+    val sessWithFavAv: LiveData<List<SessionFav>> = sessions.combine(repository.getFavourites()) { s, f ->
         combineSessionsWithFavs(s,f)
     }.asLiveData()
 
@@ -48,7 +49,7 @@ class SessionsViewModel @ViewModelInject constructor(
 
     private fun loadData() {
         launchDataLoad {
-            repository.addInitsessions()
+            repository.addInitsessionsNet()
         }
     }
 
@@ -82,6 +83,11 @@ class SessionsViewModel @ViewModelInject constructor(
     // убираем сессию из избранного
     fun remFromFav(session: Session) {
         repository.deleteFav(session = session)
+    }
+
+    fun onSearchTextChange(search:String) {
+        Log.d(TAG, "onSearchTextChange: $search")
+        filterFlow.value = search
     }
 
 }
