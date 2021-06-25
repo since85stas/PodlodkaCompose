@@ -97,7 +97,8 @@ fun SessionImage(session: Session) {
         ),
         contentDescription = "photo",
         modifier = Modifier
-            .size(80.dp).padding(end = 12.dp)
+            .size(80.dp)
+            .padding(end = 12.dp)
     )
 }
 
@@ -153,17 +154,10 @@ fun InfinitelyPulsingHeart() {
         )
     )
 
-    Box(modifier = Modifier.size(24.dp).padding(2.dp)) {
-        Icon(
-            Icons.Filled.Favorite,
-            contentDescription = null,
-            modifier = Modifier.align(Alignment.Center)
-                .graphicsLayer(
-                    scaleX = scale,
-                    scaleY = scale
-                ),
-            tint = color
-        )
+    Box(modifier = Modifier.padding(top = 8.dp)
+        .size(24.dp)
+        ) {
+        CircularProgressIndicator(color = color)
     }
 }
 
