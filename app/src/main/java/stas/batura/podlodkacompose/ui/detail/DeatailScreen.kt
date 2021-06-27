@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.unit.dp
+import coil.transform.CircleCropTransformation
 import com.google.accompanist.coil.rememberCoilPainter
 import stas.batura.podlodkacompose.data.room.Session
 
@@ -22,7 +23,10 @@ fun DetailScreen(session: Session) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Image(
             painter = rememberCoilPainter(
-                request = session.imageUrl
+                request = session.imageUrl,
+                requestBuilder = {
+                    transformations(CircleCropTransformation())
+                }
             ),
             contentDescription = "photo",
             modifier = Modifier
@@ -30,9 +34,6 @@ fun DetailScreen(session: Session) {
                 .height(200.dp)
                 .padding(bottom = 12.dp)
                 .scale(1.0f)
-                .clip(
-                    CircleShape
-                )
         )
         Divider()
 
