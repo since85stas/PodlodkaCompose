@@ -5,7 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
-import stas.batura.testapp.data.room.User
+import stas.batura.podlodkacompose.data.room.User
 
 @Dao
 interface UsersDao {
