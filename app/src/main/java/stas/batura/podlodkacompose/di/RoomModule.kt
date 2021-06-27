@@ -6,8 +6,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
-import stas.batura.testapp.data.room.UsersDao
-import stas.batura.testapp.data.room.UserDatabase
+import stas.batura.podlodkacompose.data.room.SessionDb
+import stas.batura.podlodkacompose.data.room.SessionsDao
+import stas.batura.podlodkacompose.data.room.SessionsDatabase
 import javax.inject.Singleton
 
 @Module
@@ -15,14 +16,14 @@ import javax.inject.Singleton
 class RoomModule {
 
     @Provides
-    fun providePressureDao(database: UserDatabase): UsersDao {
-        return database.usersDatabaseDao
+    fun providePressureDao(database: SessionsDatabase): SessionsDao {
+        return database.sessionsDatabaseDao
     }
 
     @Provides
     @Singleton
-    fun providesDatabase(@ApplicationContext appContext: Context): UserDatabase {
-        return UserDatabase.getInstance(appContext)
+    fun providesDatabase(@ApplicationContext appContext: Context): SessionsDatabase {
+        return SessionsDatabase.getInstance(appContext)
     }
 
 }
